@@ -3,6 +3,7 @@ import express from "express";
 import {
   getAllCategories,
   createCategory,
+  deleteManyCategories,
   getCategoryByID,
   deleteCategory,
   updateCategory,
@@ -12,7 +13,8 @@ const router = express.Router();
 
 router.route("/").get(getAllCategories);
 router.route("/").post(createCategory);
-router.route("/").delete(deleteCategory);
+router.route("/").delete(deleteManyCategories);
+router.route("/:id").delete(deleteCategory);
 router.route("/:id").get(getCategoryByID);
 router.route("/:id").put(updateCategory);
 
