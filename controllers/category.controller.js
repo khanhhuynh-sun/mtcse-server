@@ -21,6 +21,15 @@ const createCategory = async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 };
+const deleteManyCategories = async (req, res) => {
+  console.log(req.query);
+  try {
+    await Category.deleteMany({ _id: { $in: req.query.ids } });
+    return res.status(200).json("The category has been deleted!");
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
 const getCategoryByID = async (req, res) => {
   const { id } = req.params;
   try {
@@ -31,13 +40,13 @@ const getCategoryByID = async (req, res) => {
   }
 };
 const deleteCategory = async (req, res) => {
-  console.log(req.body);
+  const { id } = req.params;
   try {
     if (Array.isArray(req.body)) {
       await Category.deleteMany({ _id: { $in: req.body } });
       return res.status(200).json("The category has been deleted!");
     }
-    await Category.findByIdAndDelete(req.body);
+    await Category.findByIdAndDelete(id);
     return res.status(200).json("The category has been deleted!");
   } catch (error) {
     return res.status(500).json({ message: error.message });
@@ -56,6 +65,7 @@ const updateCategory = async (req, res) => {
 export {
   getAllCategories,
   createCategory,
+  deleteManyCategories,
   getCategoryByID,
   deleteCategory,
   updateCategory,
