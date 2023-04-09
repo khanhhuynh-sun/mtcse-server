@@ -1,18 +1,20 @@
 import Category from "../mongodb/models/Category.js";
 
 const getAllCategories = async (req, res) => {
-  const { query } = req;
+  const { sort = null, page = null, perPage = null } = req.query;
   try {
-    if (query.sort) {
-      const categories = await Category.find().sort(JSON.parse(query.sort));
-      return res.status(200).json(categories);
-    }
-    const categories = await Category.find();
-    return res.status(200).json(categories);
+    const categories = await Category.find()
+      .limit(perPage)
+      .skip(perPage * page)
+      .sort(JSON.parse(sort));
+    const length = await Category.count();
+
+    return res.status(200).json({ data: categories, length });
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
 };
+
 const createCategory = async (req, res) => {
   try {
     const category = await Category.create(req.body);
@@ -21,8 +23,8 @@ const createCategory = async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 };
+
 const deleteManyCategories = async (req, res) => {
-  console.log(req.query);
   try {
     await Category.deleteMany({ _id: { $in: req.query.ids } });
     return res.status(200).json("The category has been deleted!");
@@ -30,6 +32,7 @@ const deleteManyCategories = async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 };
+
 const getCategoryByID = async (req, res) => {
   const { id } = req.params;
   try {
@@ -39,6 +42,7 @@ const getCategoryByID = async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 };
+
 const deleteCategory = async (req, res) => {
   const { id } = req.params;
   try {
@@ -52,6 +56,7 @@ const deleteCategory = async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 };
+
 const updateCategory = async (req, res) => {
   const { id } = req.params;
   try {
