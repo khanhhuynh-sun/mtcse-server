@@ -12,8 +12,9 @@ const CategorySchema = new mongoose.Schema(
       require: true,
       maxLength: 200,
     },
+    allProduct: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product" }],
   },
-  { timestamps: true },
+  { timestamps: true }
 );
 
 export default mongoose.models.Category ||

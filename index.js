@@ -4,6 +4,7 @@ import cors from "cors";
 
 import connectDB from "./mongodb/connect.js";
 import categoryRouter from "./routes/category.routes.js";
+import productRouter from "./routes/product.routes.js";
 
 dotenv.config();
 
@@ -16,6 +17,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/categories", categoryRouter);
+app.use("/api/products", productRouter);
 
 const startServer = async () => {
   try {

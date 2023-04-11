@@ -30,20 +30,26 @@ const ProductSchema = new mongoose.Schema(
         },
       ],
     },
+    isTrending: {
+      type: Boolean,
+    },
+    isBestSeller: {
+      type: Boolean,
+    },
     category: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Category",
     },
-    brand: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Brand",
-    },
-    clothing: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Clothing",
-    },
+    // brand: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   ref: "Brand",
+    // },
+    // clothing: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   ref: "Clothing",
+    // },
   },
-  { timestamps: true },
+  { timestamps: true }
 );
 
 export default mongoose.models.Product ||
