@@ -14,9 +14,10 @@ cloudinary.config({
 });
 
 const getAllProducts = async (req, res) => {
-  const { sort = null, page = null, perPage = null } = req.query;
+  const { find = null, sort = null, page = null, perPage = null } = req.query;
+
   try {
-    const products = await Product.find()
+    const products = await Product.find(JSON.parse(find))
       .populate("category")
       .limit(perPage)
       .skip(perPage * page)
