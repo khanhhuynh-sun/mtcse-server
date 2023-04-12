@@ -34,13 +34,13 @@ const createProduct = async (req, res) => {
   try {
     const imageUrls = [];
     await Promise.all(
-      req.body.imagesList.map(async (image) => {
+      req.body.imagesList.map(async (image, index) => {
         const imageData = await cloudinary.uploader.upload(image, {
           folder: "mtcse",
           public_id: `${Date.now()}`,
           resource_type: "auto",
         });
-        imageUrls.push(imageData.url);
+        imageUrls[index] = imageData.secure_url;
       })
     );
 
@@ -105,16 +105,17 @@ const updateProduct = async (req, res) => {
     //update product
     const imageUrls = [];
     await Promise.all(
-      req.body.imagesList.map(async (image) => {
+      req.body.imagesList.map(async (image, index) => {
         if (isValidImageUrl(image)) {
-          imageUrls.push(image);
+          imageUrls[index] = image;
         } else {
           const imageData = await cloudinary.uploader.upload(image, {
             folder: "mtcse",
             public_id: `${Date.now()}`,
             resource_type: "auto",
           });
-          imageUrls.push(imageData.url);
+          console.log(imageData);
+          imageUrls[index] = imageData.secure_url;
         }
       })
     );
