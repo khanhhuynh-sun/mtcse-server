@@ -5,6 +5,8 @@ import cors from "cors";
 import connectDB from "./mongodb/connect.js";
 import categoryRouter from "./routes/category.routes.js";
 import productRouter from "./routes/product.routes.js";
+import userRouter from "./routes/user.routes.js";
+import orderRouter from "./routes/order.routes.js";
 
 dotenv.config();
 
@@ -13,11 +15,13 @@ app.use(cors());
 app.use(express.json({ limit: "50mb" }));
 
 app.get("/", (req, res) => {
-  res.send({ message: "hello" });
+  res.send({ message: "OK" });
 });
 
 app.use("/api/categories", categoryRouter);
 app.use("/api/products", productRouter);
+app.use("/api/users", userRouter);
+app.use("/api/orders", orderRouter);
 
 const startServer = async () => {
   try {

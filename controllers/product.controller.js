@@ -114,7 +114,7 @@ const updateProduct = async (req, res) => {
             public_id: `${Date.now()}`,
             resource_type: "auto",
           });
-          console.log(imageData);
+
           imageUrls[index] = imageData.secure_url;
         }
       })

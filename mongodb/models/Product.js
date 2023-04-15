@@ -40,14 +40,8 @@ const ProductSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Category",
     },
-    // brand: {
-    //   type: mongoose.Schema.Types.ObjectId,
-    //   ref: "Brand",
-    // },
-    // clothing: {
-    //   type: mongoose.Schema.Types.ObjectId,
-    //   ref: "Clothing",
-    // },
+    wishListBy: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+    orderList: [{ type: mongoose.Schema.Types.ObjectId, ref: "Order" }],
   },
   { timestamps: true }
 );
