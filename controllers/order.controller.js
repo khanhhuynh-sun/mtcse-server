@@ -44,8 +44,6 @@ const createOrder = async (req, res) => {
     };
     const order = await Order.create(newOrder);
 
-    console.log(order);
-
     await User.findByIdAndUpdate(order.user, {
       $push: { allOrders: order._id },
     });
