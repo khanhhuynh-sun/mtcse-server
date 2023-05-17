@@ -8,6 +8,7 @@ import productRouter from "./routes/product.routes.js";
 import userRouter from "./routes/user.routes.js";
 import orderRouter from "./routes/order.routes.js";
 import searchRouter from "./routes/search.routes.js";
+import wishlistRouter from "./routes/wishlist.routes.js";
 
 dotenv.config();
 
@@ -24,6 +25,7 @@ app.use("/api/products", productRouter);
 app.use("/api/users", userRouter);
 app.use("/api/orders", orderRouter);
 app.use("/api/search", searchRouter);
+app.use("/api/wishlist", wishlistRouter);
 
 const startServer = async () => {
   try {
